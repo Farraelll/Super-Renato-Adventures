@@ -1,16 +1,24 @@
-import pygame as pg
+import pygame, sys
+from src.configuracoes import *
 
-pg.init()
-janela = pg.display.set_mode((1920,1080))
-pg.display.set_caption("Teste")
-clock = pg.time.Clock()
-crashed = False
+class Jogo:
+    def __init__(self):
+        pygame.init()
+        self.tela = pygame.display.set_mode((LARGURA_TELA, ALTURA_TELA)) # type: ignore
+        self.relogio = pygame.time.Clock()
+        pygame.display.set_caption("Super Renato Adventures")
 
-while not crashed:
-    for event in pg.event.get():
-        if event.type == pg.QUIT:
-            crashed = True
-    pg.display.flip()
-    clock.tick(60)
+    def iniciar(self):
+        while True:
+            for evento in pygame.event.get():
+                if evento.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
 
-pg.quit()
+            self.tela.fill(COR_FUNDO)
+    
+            pygame.display.update()
+            self.relogio.tick(FPS)
+
+if __name__ == '__main__':
+    Jogo().iniciar()
